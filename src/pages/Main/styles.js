@@ -86,6 +86,50 @@ const Styles = StyleSheet.create({
       height: 2,
     },
   },
+
+  MatchContainer: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: 'rgba(0, 0, 0, 0.8)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+
+  MatchImage: {
+    height: 60,
+    resizeMode: 'contain',
+  },
+
+  MatchAvatar: {
+    width: 160,
+    height: 160,
+    borderRadius: 80,
+    borderWidth: 5,
+    borderColor: '#FFF',
+    marginVertical: 30,
+  },
+
+  MatchName: {
+    fontSize: 26,
+    fontWeight: 'bold',
+    color: '#FFF',
+  },
+
+  MatchBio: {
+    marginTop: 10,
+    fontSize: 16,
+    color: 'rgba(255, 255, 255, 0.8)',
+    lineHeight: 24,
+    textAlign: 'center',
+    paddingHorizontal: 30,
+  },
+
+  Close: {
+    marginTop: 30,
+    fontSize: 16,
+    textAlign: 'center',
+    fontWeight: 'bold',
+    color: 'rgba(255, 255, 255, 0.8)',
+  },
 });
 
 export default Styles;

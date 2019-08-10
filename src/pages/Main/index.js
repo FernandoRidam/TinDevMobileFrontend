@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from 'react';
+
+import io from 'socket.io-client';
+
 import {
   View,
   Text,
@@ -15,10 +18,22 @@ import Styles from './styles';
 import logo from '../../assets/logo/logo.png';
 import like from '../../assets/like/like.png';
 import dislike from '../../assets/dislike/dislike.png';
+import match from '../../assets/match/itsamatch.png';
 
 export default function Main({ navigation }) {
   const id = navigation.getParam('user');
   const [ devs, setDevs ] = useState([]);
+  const [ matchDev, setMatchDev ] = useState( null );
+
+  useEffect(() => {
+    const socket = io('http://localhost:3333', {
+      query: { user: id }
+    });
+
+    socket.on('match', dev => {
+      setMatchDev( dev );
+    });
+  }, [ id ]);
 
   useEffect(() => {
     async function loadDevs() {
@@ -110,6 +125,26 @@ export default function Main({ navigation }) {
           </TouchableOpacity>
         </View>
       )}
+
+      { matchDev && (
+        <View style={ Styles.MatchContainer } >
+          <Image style={ Styles.MatchImage } source={ match } />
+
+          <Image style={ Styles.MatchAvatar } source={{ uri: matchDev.avatar }} />
+
+          <Text style={ Styles.MatchName }>{ matchDev.name }</Text>
+          <Text style={ Styles.MatchBio }>{ matchDev.bio }</Text>
+
+          <TouchableOpacity
+            onPress={ () => setMatchDev( null )}
+          >
+            <Text style={ Styles.Close }>FECHAR</Text>
+          </TouchableOpacity>
+
+
+        </View>
+      )}
+
     </View>
   );
 };
